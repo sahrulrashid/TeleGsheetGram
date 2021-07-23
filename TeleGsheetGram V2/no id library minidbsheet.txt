@@ -1,0 +1,6 @@
+1NLQhvkXR9BHzlLELujjwFuEwY9rKaSPGZdE9Fqlfuccza0T4Fe3n5kXk
+
+
+ini link rujukan library
+
+https://blog.banghasan.com/note/tutorial/bot/telegram/google%20script/spreadsheet/spreadsheet-lib-minidb/

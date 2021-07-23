@@ -44,43 +44,44 @@ function doPost(e) {
     }
 
     //------------------------------------------------------------------------
-
-    // untuk paparkan data dari kolumn 2 saja pada sheet 1
-    var pola = /^semakpdpr ([\d-]+)$/i  // pola ini digunakan untuk carian digit IC
-    if (cocok = pola.exec(msg.text)) {
-      var nokp = cocok[1]
-      var pesan = searchColumnById(nokp, db1)
-
-      if (pesan) {
-        return sendText(msg.chat.id, pesan);
-      } else {
-        return sendText(msg.chat.id, '📣 Maaf. Data tidak dijumpai! \nJika masih tiada. Sila hubungi guru kelas anda.');
-      }
-    }
-
-    // untuk paparkan data dari kolumn 2 saja pada sheet ke 2
-    var pola = /^semakkoko ([\d-]+)$/i  // pola ini digunakan untuk carian digit IC
-    if (cocok = pola.exec(msg.text)) {
-      var nokp = cocok[1]
-      var pesan = searchColumnById(nokp, db2)
-
-      if (pesan) {
-        return sendText(msg.chat.id, pesan);
-      } else {
-        return sendText(msg.chat.id, '📣 Maaf. Data tidak dijumpai! \nJika masih tiada. Sila hubungi guru kelas anda.');
-      }
-    }
-
+    /*
+        // untuk paparkan data dari kolumn 2 saja pada sheet 1
+        var pola = /^semakpdpr ([\d-]+)$/i  // pola ini digunakan untuk carian digit IC
+        if (cocok = pola.exec(msg.text)) {
+          var nokp = cocok[1]
+          var pesan = searchColumnById(nokp, db1)
+    
+          if (pesan) {
+            return sendText(msg.chat.id, pesan);
+          } else {
+            return sendText(msg.chat.id, '📣 Maaf. Data tidak dijumpai! \nJika masih tiada. Sila hubungi guru kelas anda.');
+          }
+        }
+    
+        // untuk paparkan data dari kolumn 2 saja pada sheet ke 2
+        var pola = /^semakkoko ([\d-]+)$/i  // pola ini digunakan untuk carian digit IC
+        if (cocok = pola.exec(msg.text)) {
+          var nokp = cocok[1]
+          var pesan = searchColumnById(nokp, db2)
+    
+          if (pesan) {
+            return sendText(msg.chat.id, pesan);
+          } else {
+            return sendText(msg.chat.id, '📣 Maaf. Data tidak dijumpai! \nJika masih tiada. Sila hubungi guru kelas anda.');
+          }
+        }
+    */
     //---------------------------------
-    // untuk paparkan data dari SHEET lain pula , FORMAT SEMAKAN :- semak hadir 123456-12-4567
+    // untuk paparkan data dari SHEET lain pula , FORMAT SEMAKAN :- semak pdpr 123456-12-4567 atau semakpdpr 123456-12-4567
     var pola = /^semak (\w+) ([\d-]+)$/i
-    if (cocok = pola.exec(msg.text)) {
+    var pola1 = /^semak(\w+) ([\d-]+)$/i
+    if ((cocok = pola.exec(msg.text)) || (cocok = pola1.exec(msg.text))) {
       var nokp = cocok[2]
 
-      var kolumn = cocok[1].toUpperCase()
+      var namasheet = cocok[1].toUpperCase()
 
-      switch (kolumn) {
-        case 'PDPR':
+      switch (namasheet) {
+        case 'PDPR': // kata kunci untuk cari data di sheet PDPR, sesuaikan dengan nama sheet anda
           var pesan = searchColumnById(nokp, db1)
 
           if (pesan) {
@@ -89,7 +90,7 @@ function doPost(e) {
             return sendText(msg.chat.id, '📣 Maaf. Data tidak dijumpai! \nJika masih tiada. Sila hubungi guru kelas anda.');
           }
           break;
-        case 'KOKO':
+        case 'KOKO':  // kata kunci untuk cari data di sheet KOKO, sesuaikan dengan nama sheet anda
           var pesan = searchColumnById(nokp, db2)
 
           if (pesan) {
@@ -114,10 +115,10 @@ function doPost(e) {
       pesan1 += '\n📣Format Carian';
       pesan1 += '\n✅ Untuk semakan KOKO Murid, Taip dengan format:-';
       pesan1 += '\n<b>semakkoko 123456-12-1234</b>';
-      pesan1 += '\natau <b>semakkoko 123456-12-1234</b>';
+      pesan1 += '\natau <b>semak koko 123456-12-1234</b>';
       pesan1 += '\n✅ Untuk semakan PDPR Murid, Taip dengan format:-';
       pesan1 += '\n<b>semakpdpr 123456-12-1234</b>';
-      pesan1 += '\natau <b>semakpdpr 123456-12-1234</b>';
+      pesan1 += '\natau <b>semak pdpr 123456-12-1234</b>';
       return sendText(msg.chat.id, pesan1);
     }
 

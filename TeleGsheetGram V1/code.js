@@ -7,8 +7,8 @@ var webAppUrl = "https://script.google.com/macros/s/AKfycbzn2JMmcasN-gYOChnxRk2A
 //jangan ubah yang ini
 var telegramUrl = "https://api.telegram.org/bot" + token;
 // masukkan Nama Sheet dan Range Data anda
-var db1 = 'Data!A2:B'; // ubah nama sheet dan column
-var db2 = 'Data2!A2:B'; // ubah nama sheet dan column
+var db1 = 'PDPR!A2:B'; // ubah nama sheet dan column
+var db2 = 'KOKO!A2:B'; // ubah nama sheet dan column
 
 function doPost(e) {
   var stringJson = e.postData.getDataAsString();
@@ -25,10 +25,12 @@ function doPost(e) {
       var pesan = '<b>Selamat Datang Ke TeleSheetGram Bot</b>';
       pesan += '\n<b>Pastikan Anda Baca Arahan Sebelum Menggunakan Bot ini</b>';
       pesan += '\n📣Format Carian';
-      pesan += '\n✅ Untuk semakan IC Murid, Taip dengan format:-';
-      pesan += '\n<b>semakic 123456-12-1234</b>';
+      pesan += '\n✅ Untuk semakan KOKO Murid, Taip dengan format:-';
+      pesan += '\n<b>semakkoko 123456-12-1234</b>';
+      pesan += '\natau <b>semak koko 123456-12-1234</b>';
       pesan += '\n✅ Untuk semakan PDPR Murid, Taip dengan format:-';
       pesan += '\n<b>semakpdpr 123456-12-1234</b>';
+      pesan += '\natau <b>semak pdpr 123456-12-1234</b>';
       return sendText(msg.chat.id, pesan);
     }
 
@@ -57,7 +59,7 @@ function doPost(e) {
     }
 
     // untuk paparkan data dari kolumn 2 saja pada sheet ke 2
-    var pola = /^semakic ([\d-]+)$/i  // pola ini digunakan untuk carian digit IC
+    var pola = /^semakkoko ([\d-]+)$/i  // pola ini digunakan untuk carian digit IC
     if (cocok = pola.exec(msg.text)) {
       var nokp = cocok[1]
       var pesan = searchColumnById(nokp, db2)
@@ -69,6 +71,39 @@ function doPost(e) {
       }
     }
 
+    //---------------------------------
+    // untuk paparkan data dari SHEET lain pula , FORMAT SEMAKAN :- semak hadir 123456-12-4567
+    var pola = /^semak (\w+) ([\d-]+)$/i
+    if (cocok = pola.exec(msg.text)) {
+      var nokp = cocok[2]
+
+      var kolumn = cocok[1].toUpperCase()
+
+      switch (kolumn) {
+        case 'PDPR':
+          var pesan = searchColumnById(nokp, db1)
+
+          if (pesan) {
+            return sendText(msg.chat.id, pesan);
+          } else {
+            return sendText(msg.chat.id, '📣 Maaf. Data tidak dijumpai! \nJika masih tiada. Sila hubungi guru kelas anda.');
+          }
+          break;
+        case 'KOKO':
+          var pesan = searchColumnById(nokp, db2)
+
+          if (pesan) {
+            return sendText(msg.chat.id, pesan);
+          } else {
+            return sendText(msg.chat.id, '📣 Maaf. Data tidak dijumpai! \nJika masih tiada. Sila hubungi guru kelas anda.');
+          }
+          break;
+        default:
+          kolom = false
+      }
+
+
+    }
     //-----------------
 
     //mesej yang akan keluar bila user salan masuk format semakan. Ubah ikut pola yang anda buat
@@ -77,10 +112,12 @@ function doPost(e) {
       var pesan1 = '<b>📣Anda Telah Menaip Format Carian Yang Salah!</b>';
       pesan1 += '\n<b>Pastikan Anda Baca Arahan Sebelum Menggunakan Bot ini</b>';
       pesan1 += '\n📣Format Carian';
-      pesan1 += '\n✅ Untuk semakan IC Murid, Taip dengan format:-';
-      pesan1 += '\n<b>semakic 123456-12-1234</b>';
+      pesan1 += '\n✅ Untuk semakan KOKO Murid, Taip dengan format:-';
+      pesan1 += '\n<b>semakkoko 123456-12-1234</b>';
+      pesan1 += '\natau <b>semakkoko 123456-12-1234</b>';
       pesan1 += '\n✅ Untuk semakan PDPR Murid, Taip dengan format:-';
       pesan1 += '\n<b>semakpdpr 123456-12-1234</b>';
+      pesan1 += '\natau <b>semakpdpr 123456-12-1234</b>';
       return sendText(msg.chat.id, pesan1);
     }
 

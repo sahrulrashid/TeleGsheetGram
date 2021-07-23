@@ -65,7 +65,7 @@ function prosesPesan(update) {
         }
       }
       //-----------------------------------------------------------------------------------------
-      // untuk paparkan data dari banyak kolumn, masalah bila ubah kena selalu deploy , format semakan :- semakic 123456-12-4567
+      // untuk paparkan data dari banyak kolumn, masalah bila ubah kena selalu deploy
       var pola = /^semakic ([\d-]+)$/i
       if (cocok = pola.exec(msg.text)) {
         var nokp = cocok[1]
@@ -83,7 +83,7 @@ function prosesPesan(update) {
       }
 
       //-------------------------------------------------------------------------------------
-      // untuk paparkan data dari kolumn 2 saja dari sheet berlainan, format semakan :- semaknama 123456-12-4567
+      // untuk paparkan data dari kolumn 2 saja dari sheet berlainan
       var pola = /^semaknama ([\d-]+)$/i
       if (cocok = pola.exec(msg.text)) {
         var nokp = cocok[1]
@@ -96,7 +96,7 @@ function prosesPesan(update) {
         }
       }
       //-------------------------------------------------------------------------------------
-      // untuk paparkan data dari kolumn lain pula , format semakan :- semak 123456-12-4567 hadir
+      // untuk paparkan data dari kolumn lain pula , semak 123456-12-4567 hadir
       var pola = /^semak ([\d-]+) (\w+)$/i
       if (cocok = pola.exec(msg.text)) {
         var nokp = cocok[1]
@@ -106,10 +106,10 @@ function prosesPesan(update) {
         var kolom
 
         switch (kolumn) {
-          case 'PDPR':
+          case 'HADIR':
             kolom = 3
             break;
-          case 'KOKO':
+          case 'PERATUS':
             kolom = 4
             break;
           default:
@@ -131,7 +131,7 @@ function prosesPesan(update) {
       }
 
 //-------------------------------------------------------------------------------------
-      // untuk paparkan data dari kolumn lain pula , format semakan :- semak hadir 123456-12-4567
+      // untuk paparkan data dari kolumn lain pula , semak hadir 123456-12-4567
       var pola = /^semak (\w+) ([\d-]+)$/i
       if (cocok = pola.exec(msg.text)) {
         var nokp = cocok[2]
@@ -141,10 +141,10 @@ function prosesPesan(update) {
         var kolom
 
         switch (kolumn) {
-          case 'PDPR':
+          case 'HADIR':
             kolom = 3
             break;
-          case 'KOKO':
+          case 'PERATUS':
             kolom = 4
             break;
           default:

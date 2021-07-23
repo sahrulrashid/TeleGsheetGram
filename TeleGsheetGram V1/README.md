@@ -3,3 +3,4 @@ Cara gabungkan telegram bot dengan google sheet untuk buat sistem semakan pdpr, 
 
 @Versi 1 adalah paling mudah sekali. Tidak menggunakan library, hanya guna services sediaada dalam Google Script sahaja. 
 
+Folder GDrive sample Google Sheet ada di https://drive.google.com/drive/folders/138-X4dbYUgGhsgoJ_S26Te9LO1G8_hVr?usp=sharing
